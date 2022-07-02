@@ -1,31 +1,54 @@
 
 # Simulated enviroment for Unmanned Surface Vehicles (usv_sim_lsa) -- 0.2
 
-Forked from https://github.com/disaster-robotics-proalertas/usv_sim_lsa.
+
+[![Build Status](https://travis-ci.org/disaster-robotics-proalertas/usv_sim_lsa.svg?branch=develop)](https://travis-ci.org/disaster-robotics-proalertas/usv_sim_lsa)
+[![Read the Docs](https://readthedocs.org/projects/gazebo-usv-simulation/badge/?version=latest)](http://gazebo-usv-simulation.rtfd.io/)
+[![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/usv-sim)
+[![DOI](https://zenodo.org/badge/91500138.svg)](https://zenodo.org/badge/latestdoi/91500138)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/disaster-robotics-proalertas/usv_sim_lsa/blob/master/LICENSE)
 
 This simulator uses a combination of multiple physics packages to build a test environment for Unmanned Surface Vehicles (USV).  We'll use it, at first, to develop and test control and trajectory strategies for USVs. but it can be easily adapted to other applications. It contains multiple robot models such as propeled boats(rudder boat, differential boat, airboat) and sailboat.
 Boats are affected by waves, wind and water currents. To do that, we curently use UWsim for water surface modeling, we also load HEC-RAS output files with water speed of river and channel simulations. We simulate wind current with OpenFoam simulator. All those features alow to disturb the movement of boats in a realistic way.
 
 ## Prerequisites
 
-You need to have Ubuntu 20.04 LTS, ROS Noetic, and Gazebo 11 installed and set up with a catkin workspace before starting. Also install Open Scene Graphics version 3.2.3.
+You need Ubuntu Linux 16.04 since the current version of this simulator uses ROS Kinetic. To install ROS Kinetic and some additional packages, run the following commands:
+
+
+        sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+        sudo apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
+        sudo apt-get update
+        sudo apt-get install ros-kinetic-desktop-full ros-kinetic-control-* ros-kinetic-osg-markers ros-kinetic-move-base -y
+        sudo rosdep init
+        rosdep update
+        sudo echo "source /opt/ros/kinetic/setup.bash" >> ~/.bashrc
+        source ~/.bashrc
 
 Now run the following commands to download the dependencies of usv_sim:
 
-        sudo apt-get install python3-rosinstall python3-rosinstall-generator python3-wstool build-essential python3-rosdep python-wxtools python3-lxml python3-h5py python3-scipy python3-geolinks python3-gdal -y
+        sudo apt-get install python-rosinstall python-rosinstall-generator python-wstool build-essential python-rosdep python-wxtools python-lxml python-pathlib python-h5py python-scipy python-geolinks python-gdal -y
         sudo apt-get install libfftw3-* libxml++2.6-* libsdl-image1.2-dev libsdl-dev -y
 
 
 ## Installing
+
+To run the packages of usv_sim you need a catkin workspace. If you already have a workspace you may jump to the Downloading and installing subsection.
+
+### Creating a catkin workspace
+
+        source /opt/ros/kinetic/setup.bash
+        mkdir -p ~/catkin_ws/src
+        cd ~/catkin_ws/
+        catkin_make
 
 ### Downloading and installing usv_sim stack
 
 Clone the usv_sim repository in the src folder of your catkin workspace:
 
         cd ~/catkin_ws/src
-        git clone https://github.com/courtneymcbeth/usv_sim_lsa.git
+        git clone https://github.com/disaster-robotics-proalertas/usv_sim_lsa.git
         cd usv_sim_lsa
-        git checkout master-melodic
         git submodule init
         git submodule update
 

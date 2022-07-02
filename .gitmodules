@@ -4,19 +4,19 @@
 	branch = usv_sim
 [submodule "uwsim_resources/uwsim_osgbullet"]
 	path = uwsim_resources/uwsim_osgbullet
-	url = https://github.com/disaster-robotics-proalertas/uwsim_osgbullet.git
+	url = https://github.com/courtneymcbeth/uwsim_osgbullet.git
 	branch = usv_sim
 [submodule "uwsim_resources/uwsim_bullet"]
 	path = uwsim_resources/uwsim_bullet
-	url = https://github.com/disaster-robotics-proalertas/uwsim_bullet.git
+	url = https://github.com/courtneymcbeth/uwsim_bullet.git
 	branch = usv_sim
 [submodule "uwsim_resources/visualization_osg"]
 	path = uwsim_resources/visualization_osg
-	url = https://github.com/disaster-robotics-proalertas/visualization_osg.git
+	url = https://github.com/courtneymcbeth/visualization_osg.git
 	branch = usv_sim
 [submodule "uwsim_resources/uwsim_osgworks"]
 	path = uwsim_resources/uwsim_osgworks
-	url = https://github.com/disaster-robotics-proalertas/uwsim_osgworks.git
+	url = https://github.com/courtneymcbeth/uwsim_osgworks.git
 	branch = usv_sim
 [submodule "uwsim_resources/uwsim_osgocean"]
 	path = uwsim_resources/uwsim_osgocean
