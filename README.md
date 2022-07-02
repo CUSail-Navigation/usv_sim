@@ -23,22 +23,25 @@ Now run the following commands to download the dependencies of usv_sim:
 Clone the usv_sim repository in the src folder of your catkin workspace:
 
         cd ~/catkin_ws/src
-        git clone https://github.com/courtneymcbeth/usv_sim_lsa.git
-        cd usv_sim_lsa
-        git checkout master-melodic
+        git clone https://github.com/courtneymcbeth/usv_sim.git
+        cd usv_sim
         git submodule init
         git submodule update
+        git submodule foreach git pull origin master-melodic
 
+The last command above might give you errors. You can safely ignore them.
 Run the instalation script:
 
-        cd ~/catkin_ws/src/usv_sim_lsa
+        cd ~/catkin_ws/src/usv_sim
+        chmod +x ./install_usv_sim
         ./install_usv_sim
 
 Compile the stack:
 
         cd ~/catkin_ws/
-        catkin_make_isolated --install
+        catkin_make_isolated --install -j1
         source install_isolated/setup.bash
+        chmod +x ~/catkin_ws/src/usv_sim/uwsim_resources/underwater_simulation/uwsim/src/uwsim
 
 To run a scenario:
 
@@ -48,6 +51,8 @@ To run a scenario:
 The simulation might take some time to initialize if you're launching gazebo for the first time. If the simulation dosen't starts you should close it, run gazebo separately (command *gazebo* in the terminal), wait for gazebo to open (it is downloading some models), close gazebo and then try to run the scenario again.
 
 Make sure your graphic card driver is up to date.
+
+TODO: Update below - this is just copied from the original repo.
 
 
 ## Running the tests
