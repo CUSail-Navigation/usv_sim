@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import rospy
 import actionlib
@@ -14,6 +14,7 @@ waypoints = [
     [(0.0, 0.0, 0.0), (0.0, 0.0, 0.0, 1.0)]
 ]
 
+
 def goal_pose(pose):
     goal_pose = MoveBaseGoal()
     goal_pose.target_pose.header.frame_id = 'world'
@@ -26,6 +27,7 @@ def goal_pose(pose):
     goal_pose.target_pose.pose.orientation.w = pose[1][3]
 
     return goal_pose
+
 
 if __name__ == '__main__':
     rospy.init_node('patrol')
