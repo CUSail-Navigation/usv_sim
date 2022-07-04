@@ -1,0 +1,160 @@
+Body: Deck. hull
+Mesh Bounding Box Size 1.969898 0.280559 0.212035
+Mesh Bounding Box Diag 2.001042 
+Mesh Bounding Box min -0.984949 -0.140289 -0.106019
+Mesh Bounding Box max 0.984949 0.140270 0.106016
+Mesh Surface Area is 1.312706
+Mesh Total Len of 2655 Edges is 259.837128 Avg Len 0.097867
+Mesh Total Len of 2655 Edges is 259.837128 Avg Len 0.097867 (including faux edges))
+Thin shell (faces) barycenter: -0.062580 0.000116 0.034559
+Vertices barycenter -0.009217 0.000670 -0.034841
+Mesh Volume is 0.061640
+Center of Mass is -0.073357 0.000076 0.026509
+Inertia Tensor is :
+| 0.000426 0.000000 0.000114 |
+| 0.000000 0.011687 -0.000000 |
+| 0.000114 -0.000000 0.011799 |
+Principal axes are :
+| -0.999950 0.000035 0.010004 |
+| 0.000051 0.999999 0.001523 |
+| -0.010003 0.001524 -0.999949 |
+axis momenta are :
+| 0.000424 0.011687 0.011801 |
+
+Keel
+Mesh Bounding Box Size 0.406400 0.006350 1.308855
+Mesh Bounding Box Diag 1.370512 
+Mesh Bounding Box min -0.203200 -0.003175 -0.654427
+Mesh Bounding Box max 0.203200 0.003175 0.654427
+Mesh Surface Area is 0.343940
+Mesh Total Len of 450 Edges is 36.051929 Avg Len 0.080115
+Mesh Total Len of 450 Edges is 36.051929 Avg Len 0.080115 (including faux edges))
+Thin shell (faces) barycenter: 0.000000 -0.000000 0.204175
+Vertices barycenter -0.000000 -0.000000 0.081425
+Mesh Volume is 0.001024
+Center of Mass is -0.000000 -0.000000 0.211163
+Inertia Tensor is :
+| 0.000133 -0.000000 -0.000000 |
+| -0.000000 0.000139 0.000000 |
+| -0.000000 0.000000 0.000006 |
+Principal axes are :
+| 0.000003 -0.000000 1.000000 |
+| -1.000000 -0.000000 0.000003 |
+| 0.000000 -1.000000 -0.000000 |
+axis momenta are :
+| 0.000006 0.000133 0.000139 |
+
+Ballast
+Mesh Bounding Box Size 0.389685 0.058252 0.058495
+Mesh Bounding Box Diag 0.398334 
+Mesh Bounding Box min -0.195000 -0.029126 -0.029274
+Mesh Bounding Box max 0.194685 0.029126 0.029221
+Mesh Surface Area is 0.049060
+Mesh Total Len of 1167 Edges is 21.611124 Avg Len 0.018519
+Mesh Total Len of 1167 Edges is 21.611124 Avg Len 0.018519 (including faux edges))
+Thin shell (faces) barycenter: 0.033166 -0.000115 0.000030
+Vertices barycenter 0.063337 -0.000073 -0.000519
+Mesh Volume is 0.000564
+Center of Mass is 0.045519 -0.000115 0.000028
+Inertia Tensor is :
+| 0.00000018163986 -0.0000000000102940 0.0000000000645419 |
+| -0.0000000000102940 0.0000034679835938 -0.0000000000037849 |
+| 0.0000000000645419 -0.0000000000037849 0.0000034678496094 |
+Principal axes are :
+| -1.000000 -0.000003 0.000020 |
+| -0.000019 -0.027520 -0.999621 |
+| -0.000003 0.999621 -0.027520 |
+axis momenta are :
+| 0.000000 0.000003 0.000003 |
+
+Sail
+Mesh Bounding Box Size 0.260437 0.057357 0.990600
+Mesh Bounding Box Diag 1.025868 
+Mesh Bounding Box min -0.130218 -0.028678 -0.495300
+Mesh Bounding Box max 0.130218 0.028678 0.495300
+Mesh Surface Area is 0.563523
+Mesh Total Len of 102 Edges is 39.965630 Avg Len 0.391820
+Mesh Total Len of 102 Edges is 39.965630 Avg Len 0.391820 (including faux edges))
+Thin shell (faces) barycenter: -0.005119 -0.000104 -0.000000
+Vertices barycenter -0.043291 0.000062 0.000000
+Mesh Volume is 0.009867
+Center of Mass is -0.022806 -0.000095 0.000000
+Inertia Tensor is :
+| 0.000809 0.000000 0.000000 |
+| 0.000000 0.000843 -0.000000 |
+| 0.000000 -0.000000 0.000038 |
+Principal axes are :
+| 0.000000 -0.000000 -1.000000 |
+| -1.000000 0.000043 -0.000000 |
+| -0.000043 -1.000000 0.000000 |
+axis momenta are :
+| 0.000038 0.000809 0.000843 |
+
+MainAxle
+Mesh Bounding Box Size 0.015875 0.015875 1.041400
+Mesh Bounding Box Diag 1.041642 
+Mesh Bounding Box min -0.007938 -0.007938 -0.520700
+Mesh Bounding Box max 0.007938 0.007938 0.520700
+Mesh Surface Area is 0.092676
+Mesh Total Len of 522 Edges is 98.980614 Avg Len 0.189618
+Mesh Total Len of 522 Edges is 98.980614 Avg Len 0.189618 (including faux edges))
+Thin shell (faces) barycenter: -0.000000 -0.000005 -0.000015
+Vertices barycenter -0.000000 -0.001608 0.093738
+Mesh Volume is 0.000071
+Center of Mass is -0.000000 -0.000013 0.000355
+Inertia Tensor is :
+| 0.00000644178 -0.000000 -0.00000000001 |
+| -0.000000 0.00000644173 -0.000000000011 |
+| -0.00000000001 -0.000000000011 0.00000000355 |
+Principal axes are :
+| -0.000001 -0.000018 -1.000000 |
+| -0.005511 -0.999985 0.000018 |
+| -0.999985 0.005511 0.000001 |
+axis momenta are :
+| 0.000000 0.000006 0.000006 |
+
+RudderAxle
+Mesh Bounding Box Size 0.006232 0.006216 0.279400
+Mesh Bounding Box Diag 0.279539 
+Mesh Bounding Box min -0.003115 -0.003108 -0.139700
+Mesh Bounding Box max 0.003117 0.003108 0.139700
+Mesh Surface Area is 0.006372
+Mesh Total Len of 345 Edges is 13.004913 Avg Len 0.037695
+Mesh Total Len of 345 Edges is 13.004913 Avg Len 0.037695 (including faux edges))
+Thin shell (faces) barycenter: -0.000109 -0.000031 -0.013060
+Vertices barycenter 0.000151 -0.000034 -0.036708
+Mesh Volume is 0.000008
+Center of Mass is -0.000013 0.000004 0.000745
+Inertia Tensor is :
+| 0.000000051186386 0.0000000000000948 0.0000000000196539 |
+| 0.0000000000000948  0.00000005118602 0.0000000000058968 |
+| 0.0000000000196539 0.0000000000058968 0.0000000000375437 |
+Principal axes are :
+| 0.000384 0.000115 -1.000000 |
+| 0.237130 -0.971478 -0.000021 |
+| -0.971478 -0.237130 -0.000401 |
+axis momenta are :
+| 0.000000 0.000000 0.000000 |
+
+Rudder
+Mesh Bounding Box Size 0.090225 0.015219 0.203200
+Mesh Bounding Box Diag 0.222851 
+Mesh Bounding Box min -0.045075 -0.007610 -0.101600
+Mesh Bounding Box max 0.045150 0.007610 0.101600
+Mesh Surface Area is 0.031990
+Mesh Total Len of 348 Edges is 16.743059 Avg Len 0.048112
+Mesh Total Len of 348 Edges is 16.743059 Avg Len 0.048112 (including faux edges))
+Thin shell (faces) barycenter: 0.007891 -0.000839 0.010566
+Vertices barycenter 0.023606 0.000945 -0.037199
+Mesh Volume is 0.000117
+Center of Mass is 0.012753 -0.000340 0.015779
+Inertia Tensor is :
+| 0.00000036459077 -0.0000000040157364 0.00000002342476 |
+| -0.0000000040157364 0.00000040340129 0.0000000023923864 |
+| 0.00000002342476 0.0000000023923864 0.000000041453915 |
+Principal axes are :
+| 0.072012 0.007357 -0.997377 |
+| 0.992189 0.101597 0.072387 |
+| -0.101863 0.994798 -0.000017 |
+axis momenta are :
+| 0.000000 0.000000 0.000000 |
