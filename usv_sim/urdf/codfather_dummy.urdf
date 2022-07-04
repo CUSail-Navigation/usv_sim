@@ -2,7 +2,6 @@
 <robot name="codfather">
     <link name="body">
         <inertial>
-            <!-- <origin rpy="0 0 0" xyz="-0.073357 0.000076 0.026509" /> -->
             <origin rpy="0 0 0" xyz="-0.073357 0.000076 1.474309" />
             <mass value="8" />
             <inertia ixx="0.05528877352368592" ixy="0.0" iyy="1.516807268007787" ixz="0.014795587280986374" iyz="0.0" izz="1.5313432835820897" />

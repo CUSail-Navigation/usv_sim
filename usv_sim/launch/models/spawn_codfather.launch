@@ -15,7 +15,7 @@
 	<!-- spawn in Gazebo with GUI -->
 
 	<group ns="$(arg namespace)" unless="$(arg parse)">
-		<param name="robot_description" command="$(find urdf)/urdf $(find usv_sim)/urdf/codfather.urdf windType:=$(arg windType) waterType:=$(arg waterType)" />
+		<param name="robot_description" command="$(find xacro)/xacro $(find usv_sim)/xacro/codfather.xacro windType:=$(arg windType) waterType:=$(arg waterType)" />
 		<node unless="$(arg spawnGazebo)" name="spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-urdf -model codfather -param robot_description -x $(arg posX) -y $(arg posY) -z $(arg posZ) -R 0 -P 0 -Y 0" />
 
 		<rosparam file="$(find usv_sim)/config/codfather.yaml" command="load" />
