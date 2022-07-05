@@ -25,7 +25,7 @@
 
 		<visual name="visual">
 			<geometry>
-				<mesh filename="package://usv_sim/meshes/codfather/deck_hull.dae" scale="1 1 1" />
+				<mesh filename="package://usv_sim/meshes/codfather/deck_hull_convex_hull.obj" scale="1 1 1" />
 			</geometry>
 			<origin rpy="0 0 0" xyz="0 0 1.4478" />
 		</visual>
@@ -64,7 +64,7 @@
 
 		<visual name="ballast_visual">
 			<geometry>
-				<mesh filename="package://usv_sim/meshes/codfather/ballast.dae" scale="1 1 1" />
+				<mesh filename="package://usv_sim/meshes/codfather/ballast_convex_hull.obj" scale="1 1 1" />
 			</geometry>
 			<origin rpy="0 0 0" xyz="-0.225 0 0.0974" />
 		</visual>
@@ -87,7 +87,7 @@
 
 		<visual name="mast_visual">
 			<geometry>
-				<mesh filename="package://usv_sim/meshes/codfather/mast.dae" scale="1 1 1" />
+				<mesh filename="package://usv_sim/meshes/codfather/MainAxle.obj" scale="1 1 1" />
 			</geometry>
 			<!-- <origin rpy="0 0 0" xyz="0 0 1.968" /> -->
 			<origin rpy="0 0 0" xyz="0 0 0.5202" />
@@ -120,7 +120,7 @@
 
 		<visual name="sail_visual">
 			<geometry>
-				<mesh filename="package://usv_sim/meshes/codfather/sail.dae" scale="1 1 1" />
+				<mesh filename="package://usv_sim/meshes/codfather/sail_alone_convex_hull.obj" scale="1 1 1" />
 			</geometry>
 			<origin rpy="0 0 3.1415926535897932" xyz="0 0 0.6726" />
 		</visual>
@@ -147,7 +147,7 @@
 
 		<visual name="axle_visual">
 			<geometry>
-				<mesh filename="package://usv_sim/meshes/codfather/axle.dae" scale="1 1 1" />
+				<mesh filename="package://usv_sim/meshes/codfather/RudderAxle_convex_hull.obj" scale="1 1 1" />
 			</geometry>
 			<!-- <origin rpy="0 0 0" xyz="-0.894724 0 1.3970" /> -->
 		</visual>
@@ -161,7 +161,7 @@
 
 		<visual name="rudder_visual">
 			<geometry>
-				<mesh filename="package://usv_sim/meshes/codfather/rudder.dae" scale="1 1 1" />
+				<mesh filename="package://usv_sim/meshes/codfather/rudder_convex_hull.obj" scale="1 1 1" />
 			</geometry>
 			<origin rpy="0 0 0" xyz="0 0 -0.0508" />
 		</visual>
