@@ -39,7 +39,7 @@
     <resw> 1152 </resw>
     <resh> 864 </resh>
     <showTrajectory>
-      <target>sailboat</target>
+      <target>codfather</target>
     </showTrajectory>
   </simParams>
 
@@ -147,8 +147,8 @@
   <rosInterfaces>
 
     <ROSOdomToPAT>
-      <topic> /sailboat/state </topic>
-      <vehicleName> sailboat </vehicleName>
+      <topic> /codfather/state </topic>
+      <vehicleName> codfather </vehicleName>
     </ROSOdomToPAT>
 
     <ROSOdomToPAT>
@@ -167,38 +167,38 @@
     </ROSOdomToPAT>
 
     <OceanSurfaceToROSOceanVehicle>
-      <topic>/sailboat/Surface/base_link</topic>
-      <vehicleName>sailboat</vehicleName>
+      <topic>/codfather/Surface/base_link</topic>
+      <vehicleName>codfather</vehicleName>
       <linkName>base_link</linkName>
     </OceanSurfaceToROSOceanVehicle>
 
     <OceanSurfaceToROSOceanVehicle>
-      <topic>/sailboat/Surface/center_r_link</topic>
-      <vehicleName>sailboat</vehicleName>
+      <topic>/codfather/Surface/center_r_link</topic>
+      <vehicleName>codfather</vehicleName>
       <linkName>center_r_link</linkName>
     </OceanSurfaceToROSOceanVehicle>
 
     <OceanSurfaceToROSOceanVehicle>
-      <topic>/sailboat/Surface/back_r_link</topic>
-      <vehicleName>sailboat</vehicleName>
+      <topic>/codfather/Surface/back_r_link</topic>
+      <vehicleName>codfather</vehicleName>
       <linkName>back_r_link</linkName>
     </OceanSurfaceToROSOceanVehicle>
 
     <OceanSurfaceToROSOceanVehicle>
-      <topic>/sailboat/Surface/back_l_link</topic>
-      <vehicleName>sailboat</vehicleName>
+      <topic>/codfather/Surface/back_l_link</topic>
+      <vehicleName>codfather</vehicleName>
       <linkName>back_l_link</linkName>
     </OceanSurfaceToROSOceanVehicle>
 
     <OceanSurfaceToROSOceanVehicle>
-      <topic>/sailboat/Surface/front_r_link</topic>
-      <vehicleName>sailboat</vehicleName>
+      <topic>/codfather/Surface/front_r_link</topic>
+      <vehicleName>codfather</vehicleName>
       <linkName>front_r_link</linkName>
     </OceanSurfaceToROSOceanVehicle>
 
     <OceanSurfaceToROSOceanVehicle>
-      <topic>/sailboat/Surface/front_l_link</topic>
-      <vehicleName>sailboat</vehicleName>
+      <topic>/codfather/Surface/front_l_link</topic>
+      <vehicleName>codfather</vehicleName>
       <linkName>front_l_link</linkName>
     </OceanSurfaceToROSOceanVehicle>
 
@@ -223,8 +223,8 @@
 
 
     <ROSJointStateToArm>
-      <topic>/sailboat/joint_states</topic>
-      <vehicleName>sailboat</vehicleName>
+      <topic>/codfather/joint_states</topic>
+      <vehicleName>codfather</vehicleName>
     </ROSJointStateToArm>
 
   </rosInterfaces>
