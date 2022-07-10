@@ -169,38 +169,38 @@
     <OceanSurfaceToROSOceanVehicle>
       <topic>/codfather/Surface/base_link</topic>
       <vehicleName>codfather</vehicleName>
-      <linkName>base_link</linkName>
+      <linkName>body</linkName>
     </OceanSurfaceToROSOceanVehicle>
 
-    <OceanSurfaceToROSOceanVehicle>
+    <!-- <OceanSurfaceToROSOceanVehicle>
       <topic>/codfather/Surface/center_r_link</topic>
       <vehicleName>codfather</vehicleName>
       <linkName>center_r_link</linkName>
-    </OceanSurfaceToROSOceanVehicle>
+    </OceanSurfaceToROSOceanVehicle> -->
 
-    <OceanSurfaceToROSOceanVehicle>
+    <!-- <OceanSurfaceToROSOceanVehicle>
       <topic>/codfather/Surface/back_r_link</topic>
       <vehicleName>codfather</vehicleName>
       <linkName>back_r_link</linkName>
-    </OceanSurfaceToROSOceanVehicle>
+    </OceanSurfaceToROSOceanVehicle> -->
 
-    <OceanSurfaceToROSOceanVehicle>
+    <!-- <OceanSurfaceToROSOceanVehicle>
       <topic>/codfather/Surface/back_l_link</topic>
       <vehicleName>codfather</vehicleName>
       <linkName>back_l_link</linkName>
-    </OceanSurfaceToROSOceanVehicle>
+    </OceanSurfaceToROSOceanVehicle> -->
 
-    <OceanSurfaceToROSOceanVehicle>
+    <!-- <OceanSurfaceToROSOceanVehicle>
       <topic>/codfather/Surface/front_r_link</topic>
       <vehicleName>codfather</vehicleName>
       <linkName>front_r_link</linkName>
-    </OceanSurfaceToROSOceanVehicle>
+    </OceanSurfaceToROSOceanVehicle> -->
 
-    <OceanSurfaceToROSOceanVehicle>
+    <!-- <OceanSurfaceToROSOceanVehicle>
       <topic>/codfather/Surface/front_l_link</topic>
       <vehicleName>codfather</vehicleName>
       <linkName>front_l_link</linkName>
-    </OceanSurfaceToROSOceanVehicle>
+    </OceanSurfaceToROSOceanVehicle> -->
 
 
     <OceanSurfaceToROSOceanVehicle>
