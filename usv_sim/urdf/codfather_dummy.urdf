@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<robot name="codfather">
+<robot name="codfather_dummy">
     <link name="body">
         <inertial>
             <origin rpy="0 0 0" xyz="-0.073357 0.000076 1.474309" />

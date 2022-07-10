@@ -18,14 +18,14 @@
 
 		<collision name="collision">
 			<geometry>
-				<mesh filename="package://usv_sim/meshes/codfather/deck_hull_convex_hull.obj" scale="1 1 1" />
+				<mesh filename="package://usv_sim/meshes/codfather/deck_hull_colored.obj" scale="1 1 1" />
 			</geometry>
 			<origin rpy="0 0 0" xyz="0 0 1.4478" />
 		</collision>
 
 		<visual name="visual">
 			<geometry>
-				<mesh filename="package://usv_sim/meshes/codfather/deck_hull_convex_hull.obj" scale="1 1 1" />
+				<mesh filename="package://usv_sim/meshes/codfather/deck_hull_colored.obj" scale="1 1 1" />
 			</geometry>
 			<origin rpy="0 0 0" xyz="0 0 1.4478" />
 		</visual>
@@ -41,14 +41,14 @@
 
 		<visual name="keel_visual">
 			<geometry>
-				<mesh filename="package://usv_sim/meshes/codfather/keel.obj" scale="1 1 1" />
+				<mesh filename="package://usv_sim/meshes/codfather/keel_colored.obj" scale="1 1 1" />
 			</geometry>
 			<origin rpy="0 0 0" xyz="-0.0762 0 0.7648" />
 		</visual>
 
 		<collision name="keel_collision">
 			<geometry>
-				<mesh filename="package://usv_sim/meshes/codfather/keel.obj" scale="1 1 1" />
+				<mesh filename="package://usv_sim/meshes/codfather/keel_colored.obj" scale="1 1 1" />
 			</geometry>
 			<origin rpy="0 0 0" xyz="-0.0762 0 0.7648" />
 		</collision>
@@ -64,14 +64,14 @@
 
 		<visual name="ballast_visual">
 			<geometry>
-				<mesh filename="package://usv_sim/meshes/codfather/ballast_convex_hull.obj" scale="1 1 1" />
+				<mesh filename="package://usv_sim/meshes/codfather/ballast_colored.obj" scale="1 1 1" />
 			</geometry>
 			<origin rpy="0 0 0" xyz="-0.225 0 0.0974" />
 		</visual>
 
 		<collision name="ballast_collision">
 			<geometry>
-				<mesh filename="package://usv_sim/meshes/codfather/ballast_convex_hull.obj" scale="1 1 1" />
+				<mesh filename="package://usv_sim/meshes/codfather/ballast_colored.obj" scale="1 1 1" />
 			</geometry>
 			<origin rpy="0 0 0" xyz="-0.225 0 0.0974" />
 		</collision>
@@ -87,7 +87,7 @@
 
 		<visual name="mast_visual">
 			<geometry>
-				<mesh filename="package://usv_sim/meshes/codfather/MainAxle.obj" scale="1 1 1" />
+				<mesh filename="package://usv_sim/meshes/codfather/mast_colored.obj" scale="1 1 1" />
 			</geometry>
 			<!-- <origin rpy="0 0 0" xyz="0 0 1.968" /> -->
 			<origin rpy="0 0 0" xyz="0 0 0.5202" />
@@ -95,7 +95,7 @@
 
 		<collision name="mast_collision">
 			<geometry>
-				<mesh filename="package://usv_sim/meshes/codfather/MainAxle.obj" scale="1 1 1" />
+				<mesh filename="package://usv_sim/meshes/codfather/mast_colored.obj" scale="1 1 1" />
 			</geometry>
 			<!-- <origin rpy="0 0 0" xyz="0 0 1.968" /> -->
 			<origin rpy="0 0 0" xyz="0 0 0.5202" />
@@ -112,7 +112,7 @@
 
 		<collision name="sail_collision">
 			<geometry>
-				<mesh filename="package://usv_sim/meshes/codfather/sail_alone_convex_hull.obj" scale="1 1 1" />
+				<mesh filename="package://usv_sim/meshes/codfather/sail_colored.obj" scale="1 1 1" />
 			</geometry>
 			<!-- <origin rpy="0 0 3.1415926535897932" xyz="0 0 2.1204" /> -->
 			<origin rpy="0 0 3.1415926535897932" xyz="0 0 0.6726" />
@@ -120,7 +120,7 @@
 
 		<visual name="sail_visual">
 			<geometry>
-				<mesh filename="package://usv_sim/meshes/codfather/sail_alone_convex_hull.obj" scale="1 1 1" />
+				<mesh filename="package://usv_sim/meshes/codfather/sail_colored.obj" scale="1 1 1" />
 			</geometry>
 			<origin rpy="0 0 3.1415926535897932" xyz="0 0 0.6726" />
 		</visual>
@@ -145,23 +145,22 @@
 			<inertia ixx="0.0015580802136752137" ixy="-1.7161266666666664e-05" iyy="0.0017239371367521368" ixz="0.00010010581196581196" iyz="1.0223873504273504e-05" izz="0.0001771534829059829" />
 		</inertial>
 
-		<visual name="axle_visual">
+		<!-- <visual name="axle_visual">
 			<geometry>
 				<mesh filename="package://usv_sim/meshes/codfather/RudderAxle_convex_hull.obj" scale="1 1 1" />
 			</geometry>
-			<!-- <origin rpy="0 0 0" xyz="-0.894724 0 1.3970" /> -->
-		</visual>
+		</visual> -->
 
 		<collision name="rudder_collision">
 			<geometry>
-				<mesh filename="package://usv_sim/meshes/codfather/rudder_convex_hull.obj" scale="1 1 1" />
+				<mesh filename="package://usv_sim/meshes/codfather/rudder_colored.obj" scale="1 1 1" />
 			</geometry>
 			<origin rpy="0 0 0" xyz="0 0 -0.0508" />
 		</collision>
 
 		<visual name="rudder_visual">
 			<geometry>
-				<mesh filename="package://usv_sim/meshes/codfather/rudder_convex_hull.obj" scale="1 1 1" />
+				<mesh filename="package://usv_sim/meshes/codfather/rudder_colored.obj" scale="1 1 1" />
 			</geometry>
 			<origin rpy="0 0 0" xyz="0 0 -0.0508" />
 		</visual>
