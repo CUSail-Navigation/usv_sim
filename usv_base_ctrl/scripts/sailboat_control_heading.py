@@ -88,7 +88,7 @@ def talker_ctrl():
     rospy.init_node('usv_simple_ctrl', anonymous=True)
     rate = rospy.Rate(rate_value)  # 10h
     # publishes to thruster and rudder topics
-    #pub_sail = rospy.Publisher('angleLimits', Float64, queue_size=10)
+    # pub_sail = rospy.Publisher('angleLimits', Float64, queue_size=10)
     pub_rudder = rospy.Publisher('joint_setpoint', JointState, queue_size=10)
     pub_result = rospy.Publisher('move_usv/result', Float64, queue_size=10)
     pub_heading = rospy.Publisher('currentHeading', Float64, queue_size=10)
@@ -240,7 +240,7 @@ def rudder_ctrl():
     log_msg = "sp: {0}; erro: {1}; x_atual: {2}; y_atual: {3}; x_destino: {4}; y_destino: {5}; distancia_destino: {6}, rudder_angle: {7}; target_angle: {8}" .format(
         sp_angle, err, initial_pose.pose.pose.position.x, initial_pose.pose.pose.position.y, target_pose.pose.pose.position.x, target_pose.pose.pose.position.y, target_distance, rudder_angle, target_angle)
 
-    # rospy.loginfo(log_msg)
+    rospy.loginfo(log_msg)
 
     return math.radians(rudder_angle)
 
@@ -249,9 +249,15 @@ def rudder_ctrl_msg():
     msg = JointState()
     msg.header = Header()
     msg.name = ['rudder_joint', 'sail_joint']
-    msg.position = [rudder_ctrl(), sail_ctrl()]
+    rud = rudder_ctrl()
+    sail = sail_ctrl()
+    msg.position = [rud, sail]
     msg.velocity = []
     msg.effort = []
+
+    log_msg="Setting (degrees) sail: {}, rudder {}".format(math.degrees(rud), math.degrees(sail))
+    rospy.loginfo(log_msg)
+
     return msg
 
 
