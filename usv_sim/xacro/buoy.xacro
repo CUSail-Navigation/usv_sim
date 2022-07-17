@@ -16,7 +16,7 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0.05" />
       <geometry>
-        <mesh filename="package://usv_sim/meshes/buoy/orange.obj" scale="1 1 1" />
+        <mesh filename="package://usv_sim/meshes/buoy/orange_collis.obj" scale="1 1 1" />
       </geometry>
     </collision>
     <buoyancy>
