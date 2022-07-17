@@ -2,6 +2,11 @@
 
 <robot name="codfather" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
+	<xacro:property name="body_mass" value="8" />
+	<!-- TODO figure out what this should be, I have no idea -->
+	<xacro:property name="body_water_displaced_mass" value="100" />
+	<xacro:property name="scale" value="1" />
+
 	<xacro:arg name="windType" default="global" />
 	<xacro:arg name="waterType" default="global" />
 	<xacro:property name="windType" value="$(arg windType)" />
@@ -29,6 +34,18 @@
 			</geometry>
 			<origin rpy="0 0 0" xyz="0 0 1.4478" />
 		</visual>
+
+		<buoyancy>
+			<compensation>${body_water_displaced_mass/body_mass}</compensation>
+			<origin xyz="${0.35*scale} ${0.44*scale} ${-0.15*scale}" />
+			<limit radius="0.1" />
+			<damping rpy="20 20 20" xyz="20 40 50" />
+			<windVelocity>${windType}</windVelocity>
+			<frontal_area>0.04</frontal_area>
+			<lateral_area>0.06</lateral_area>
+			<lateral_length>1.2</lateral_length>
+			<waterVelocity>${waterType}</waterVelocity>
+		</buoyancy>
 	</link>
 
 	<link name="keel">
