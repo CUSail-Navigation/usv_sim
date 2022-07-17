@@ -76,10 +76,11 @@ def verify_result():
     global target_distance
     global result
     global f_distance
-    if target_distance < f_distance:
-        result.data = 1
-    if target_distance >= f_distance:
-        result.data = 0
+    # if target_distance < f_distance:
+    #     result.data = 1
+    # if target_distance >= f_distance:
+    #     result.data = 0
+    result.data = 0  # TODO for some reason this only works if its 0
     return result
 
 
@@ -342,9 +343,9 @@ def rudder_ctrl_msg():
     msg = JointState()
     msg.header = Header()
     msg.name = ['rudder_joint', 'sail_joint']
+    sail, rud = sail_rudder_ctrl()
     # rud = rudder_ctrl()
     # sail = sail_ctrl()
-    sail, rud = sail_rudder_ctrl()
     msg.position = [rud, sail]
     msg.velocity = []
     msg.effort = []
