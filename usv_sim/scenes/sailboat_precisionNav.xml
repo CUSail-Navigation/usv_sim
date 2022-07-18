@@ -81,6 +81,20 @@
     </orientation>
   </vehicle>
 
+  <vehicle>
+    <name>waypoint_marker</name>
+    <file>urdf/marker_uwsim.urdf</file>
+    <position>
+      <x> 205</x>
+      <y> 95 </y>
+      <z> 1 </z>
+    </position>
+    <orientation>
+      <r>0</r>
+      <p>0</p>
+      <y>0</y>
+    </orientation>
+  </vehicle>
 
   <vehicle>
     <name>buoy1</name>
@@ -185,6 +199,11 @@
       <vehicleName> buoy4 </vehicleName>
     </ROSOdomToPAT>
 
+    <ROSOdomToPAT>
+      <topic> /waypoint_marker/state </topic>
+      <vehicleName> waypoint_marker </vehicleName>
+    </ROSOdomToPAT>
+
     <OceanSurfaceToROSOceanVehicle>
       <topic>/sailboat/Surface/base_link</topic>
       <vehicleName>sailboat</vehicleName>
@@ -243,6 +262,12 @@
     <OceanSurfaceToROSOceanVehicle>
       <topic>/buoy4/Surface/link</topic>
       <vehicleName>buoy4</vehicleName>
+      <linkName>link</linkName>
+    </OceanSurfaceToROSOceanVehicle>
+
+    <OceanSurfaceToROSOceanVehicle>
+      <topic>/waypoint_marker/Surface/link</topic>
+      <vehicleName>waypoint_marker</vehicleName>
       <linkName>link</linkName>
     </OceanSurfaceToROSOceanVehicle>
 
