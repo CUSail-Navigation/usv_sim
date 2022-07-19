@@ -16,7 +16,7 @@ from navigation_utilities import *
 
 initial_pose = Odometry()
 target_pose = Odometry()
-target_distance = 0
+target_distance = math.inf
 actuator_vel = 15
 Ianterior = 0
 rate_value = 10
@@ -28,7 +28,7 @@ windDir = Float64()
 windDir.data = 1.5
 currentHeading = Float64()
 currentHeading.data = 0
-f_distance = 4
+f_distance = 2
 sail_min = 0
 sail_max = math.pi / 2
 current_heading = 0
@@ -78,11 +78,10 @@ def verify_result():
     global target_distance
     global result
     global f_distance
-    # if target_distance < f_distance:
-    #     result.data = 1
-    # if target_distance >= f_distance:
-    #     result.data = 0
-    result.data = 0  # TODO for some reason this only works if its 0
+    if target_distance < f_distance:
+        result.data = 1
+    if target_distance >= f_distance:
+        result.data = 0
     return result
 
 
@@ -181,6 +180,13 @@ def sail_rudder_ctrl():
     global last_run
     global T
 
+    x1 = initial_pose.pose.pose.position.x
+    y1 = initial_pose.pose.pose.position.y
+    x2 = target_pose.pose.pose.position.x
+    y2 = target_pose.pose.pose.position.y
+
+    target_distance = math.hypot(x2 - x1, y2 - y1)
+
     if (sim_time - last_run) < T:
         return math.radians(sail_angle), math.radians(rud_angle)
 
@@ -208,11 +214,6 @@ def sail_rudder_ctrl():
     windDir.data = math.radians(wind_dir)
     # end of unknowns
 
-    x1 = initial_pose.pose.pose.position.x
-    y1 = initial_pose.pose.pose.position.y
-    x2 = target_pose.pose.pose.position.x
-    y2 = target_pose.pose.pose.position.y
-
     boat_position = (x1, y1)
     target_position = (x2, y2)
     angle_boat_heading = math.degrees(currentHeading.data)
@@ -224,9 +225,9 @@ def sail_rudder_ctrl():
                                                angle_boat_heading,
                                                intended_angle)
 
-    log_msg = "boat: ({}, {}), target: ({}, {}), abs wind: {}, heading: {}, intended angle: {}, sail angle: {}, rud angle: {}".format(
-        x1, y1, x2, x2, abs_wind_dir, angle_boat_heading, intended_angle,
-        sail_angle, rud_angle)
+    log_msg = "boat: ({}, {}), target: ({}, {}), target dist: {}, abs wind: {}, heading: {}, intended angle: {}, sail angle: {}, rud angle: {}".format(
+        x1, y1, x2, y2, target_distance, abs_wind_dir, angle_boat_heading,
+        intended_angle, sail_angle, rud_angle)
     rospy.loginfo(log_msg)
 
     return math.radians(sail_angle), math.radians(rud_angle)
@@ -362,9 +363,9 @@ def rudder_ctrl_msg():
     msg.velocity = []
     msg.effort = []
 
-    log_msg = "Setting (degrees) sail: {}, rudder {}".format(
-        math.degrees(sail), math.degrees(rud))
-    rospy.loginfo(log_msg)
+    # log_msg = "Setting (degrees) sail: {}, rudder {}".format(
+    #     math.degrees(sail), math.degrees(rud))
+    # rospy.loginfo(log_msg)
 
     return msg
 
