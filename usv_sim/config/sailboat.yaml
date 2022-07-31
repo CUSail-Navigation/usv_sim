@@ -30,3 +30,30 @@ controllers:
     sail_joint:
         velocity: {p: 5.0, i: 1, d: 0.0}
         position: {p: 10, i: 1, d: 0}
+
+training: #namespace
+    task_and_robot_environment_name: 'Sailboat-v0'
+    ros_ws_abspath: "/home/courtney/catkin_ws" # TODO change this depending on the computer being used
+    running_step: 0.04 # amount of time the control will be executed
+    pos_step: 0.016     # increment in position for each command
+    
+    #ddpg parameters
+    buffer_size: 1000000
+    batch_size: 64
+    gamma: 0.9
+    tau: 0.001
+    lr_actor: 0.0001
+    lr_critic: 0.001
+
+    hidden_size1: 400
+    hidden_size2: 300
+
+    buffer_start: 100
+    epsilon: 1
+    epsilon_decay: 0
+
+    print_every: 10
+
+    nepisodes: 5000
+    nsteps: 10000
+    running_step: 0.06 # Time for each step

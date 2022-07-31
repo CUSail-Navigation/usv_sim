@@ -16,11 +16,8 @@ buoys = [(205, 96.5), (205, 93.5), (248, 120), (248, 70)]
 waypoints = precisionNavigationImpl(buoys)
 waypoints = [[(w[0], w[1], 0.0), (0.0, 0.0, 0.0, 1.0)] for w in waypoints]
 
-# waypoints = [[(35.0, 0.0, 0.0), (0.0, 0.0, 0.0, 1.0)]]
 result = Float64()
 result.data = 0
-x_offset = 240
-y_offset = 95
 maxSimulations = 1
 maxTime = 5 * 60
 
