@@ -34,8 +34,6 @@ controllers:
 training: #namespace
     task_and_robot_environment_name: 'Sailboat-v0'
     ros_ws_abspath: "/home/courtney/catkin_ws" # TODO change this depending on the computer being used
-    running_step: 0.04 # amount of time the control will be executed
-    pos_step: 0.016     # increment in position for each command
     
     #ddpg parameters
     buffer_size: 1000000
@@ -55,5 +53,5 @@ training: #namespace
     print_every: 10
 
     nepisodes: 5000
-    nsteps: 10000
-    running_step: 0.06 # Time for each step
+    nsteps: 1000
+    

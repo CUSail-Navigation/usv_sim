@@ -21,8 +21,8 @@ result.data = 0
 maxSimulations = 1
 maxTime = 5 * 60
 
-goal_x = np.random.uniform(100, 300, 1)
-goal_y = np.random.uniform(100, 300, 1)
+goal_x = np.random.uniform(10, 140, 1)
+goal_y = np.random.uniform(10, 140, 1)
 
 marker_pos = (0, 0)
 
@@ -44,23 +44,35 @@ def marker_msg():
     x = goal_x
     y = goal_y
 
-    if marker_pos[0] != x or marker_pos[1] != y:
-        marker_pos = (x, y)
+    msg = ModelState()
+    msg.model_name = "waypoint_marker"
+    msg.pose.position.x = x
+    msg.pose.position.y = y
+    msg.pose.position.z = 1
+    msg.pose.orientation.w = 1
+    msg.pose.orientation.x = 0
+    msg.pose.orientation.y = 0
+    msg.pose.orientation.z = 0
 
-        msg = ModelState()
-        msg.model_name = "waypoint_marker"
-        msg.pose.position.x = x
-        msg.pose.position.y = y
-        msg.pose.position.z = 1
-        msg.pose.orientation.w = 1
-        msg.pose.orientation.x = 0
-        msg.pose.orientation.y = 0
-        msg.pose.orientation.z = 0
+    return msg
 
-        return msg
+    # if marker_pos[0] != x or marker_pos[1] != y:
+    #     marker_pos = (x, y)
 
-    else:
-        return None
+    #     msg = ModelState()
+    #     msg.model_name = "waypoint_marker"
+    #     msg.pose.position.x = x
+    #     msg.pose.position.y = y
+    #     msg.pose.position.z = 1
+    #     msg.pose.orientation.w = 1
+    #     msg.pose.orientation.x = 0
+    #     msg.pose.orientation.y = 0
+    #     msg.pose.orientation.z = 0
+
+    #     return msg
+
+    # else:
+    #     return None
 
 
 if __name__ == '__main__':
@@ -70,7 +82,7 @@ if __name__ == '__main__':
                                  ModelState,
                                  queue_size=10)
     rospy.init_node('patrol')
-    rate = rospy.Rate(1)  # 10h
+    rate = rospy.Rate(1)  # 1Hz
     rospy.wait_for_service('/gazebo/unpause_physics')
     rospy.wait_for_service('/gazebo/pause_physics')
     rospy.wait_for_service('/gazebo/reset_simulation')
@@ -85,10 +97,11 @@ if __name__ == '__main__':
             goal = goal_pose()
             pub.publish(goal)
 
+            pub_marker.publish(marker_msg())
             # Only move the marker if the target has changed, otherwise jitters
-            mm = marker_msg()
-            if mm is not None:
-                pub_marker.publish(mm)
+            # mm = marker_msg()
+            # if mm is not None:
+            #     pub_marker.publish(mm)
 
             rate.sleep()
         except rospy.ROSInterruptException:

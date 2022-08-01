@@ -6,7 +6,6 @@ import numpy
 import time
 import torch
 from torch import nn, optim
-from torch.utils.tensorboard import SummaryWriter
 from gym import wrappers
 from functools import reduce
 # ROS packages required
@@ -59,7 +58,6 @@ if __name__ == '__main__':
 
     nepisodes = rospy.get_param("/sailboat/training/nepisodes")
     nsteps = rospy.get_param("/sailboat/training/nsteps")
-    running_step = rospy.get_param("/sailboat/training/running_step")
 
     # Use GPU if possible
     device = None
@@ -109,12 +107,12 @@ if __name__ == '__main__':
 
     class NormalizedEnv(gym.ActionWrapper):
 
-        def _action(self, action):
+        def action(self, action):
             act_k = (self.action_space.high - self.action_space.low) / 2.
             act_b = (self.action_space.high + self.action_space.low) / 2.
             return act_k * action + act_b
 
-        def _reverse_action(self, action):
+        def reverse_action(self, action):
             act_k_inv = 2. / (self.action_space.high - self.action_space.low)
             act_b = (self.action_space.high + self.action_space.low) / 2.
             return act_k_inv * (action - act_b)
@@ -180,7 +178,7 @@ if __name__ == '__main__':
         def forward(self, state):
             x = self.linear1(state)
             x = self.relu(x)
-            x = self.linear2(state)
+            x = self.linear2(x)
             x = self.relu(x)
             x = self.linear3(x)
             x = self.tanh(x)
@@ -227,7 +225,11 @@ if __name__ == '__main__':
     rospy.loginfo("State dim: {}, Action dim: {}".format(
         state_dim, action_dim))
 
-    noise = OrnsteinUhlenbeckActionNoise(mu=numpy.zeros(action_dim))
+    noise = OrnsteinUhlenbeckActionNoise(mu=numpy.zeros(action_dim),
+                                         sigma=numpy.array([
+                                             env.action_space.high[0] * 0.2,
+                                             env.action_space.high[1] * 0.2
+                                         ]))
 
     critic = Critic(state_dim, action_dim).to(device)
     actor = Actor(state_dim, action_dim).to(device)
@@ -249,7 +251,6 @@ if __name__ == '__main__':
     MSE = nn.MSELoss()
 
     memory = ReplayBuffer(buffer_size)
-    writer = SummaryWriter()
 
     plot_reward = []
     plot_policy = []
@@ -277,10 +278,12 @@ if __name__ == '__main__':
             a = numpy.clip(a, -1, 1)  # normalization by normalized env wrapper
             s2, reward, terminal, info = env.step(a)
 
-            memory.add(s, a, reward, terminal, s2)
+            if not terminal:
+                memory.add(s, a, reward, terminal, s2)
 
             # keep adding experiences until batch size is reached
             if memory.count() > buffer_start:
+
                 s_batch, a_batch, r_batch, t_batch, s2_batch = memory.sample(
                     batch_size)
 
@@ -323,22 +326,26 @@ if __name__ == '__main__':
             s = deepcopy(s2)
             ep_reward += reward
 
-            try:
-                plot_reward.append([ep_reward, episode + 1])
-                plot_policy.append([policy_loss.data, episode + 1])
-                plot_q.append([q_loss.data, episode + 1])
-                plot_steps.append([step + 1, episode + 1])
-            except:
-                continue
+            if terminal:
+                break
 
-            average_reward += ep_reward
+        try:
+            plot_reward.append([ep_reward, episode + 1])
+            plot_policy.append([policy_loss.data, episode + 1])
+            plot_q.append([q_loss.data, episode + 1])
+            plot_steps.append([step + 1, episode + 1])
+        except:
+            pass
 
-            if ep_reward > best_reward:
-                torch.save(actor.state_dict(), 'best_model_sailboat.pickle')
-                best_reward = ep_reward
-                saved_reward = ep_reward
-                saved_ep = episode + 1
+        average_reward += ep_reward
 
+        if ep_reward > best_reward:
+            torch.save(actor.state_dict(), 'best_model_sailboat.pickle')
+            best_reward = ep_reward
+            saved_reward = ep_reward
+            saved_ep = episode + 1
+
+        try:
             if (episode % print_every) == (print_every - 1):
                 subplot(plot_reward, plot_policy, plot_q, plot_steps)
                 rospy.loginfo(
@@ -351,5 +358,7 @@ if __name__ == '__main__':
                     format(saved_reward, saved_ep))
 
                 average_reward = 0
+        except:
+            pass
 
     env.close()

@@ -51,13 +51,13 @@
     <near> 1 </near>
     <far> 10000 </far>
     <position>
-      <x>230</x>
-      <y>95 </y>
+      <x>20</x>
+      <y>75 </y>
       <z>15 </z>
     </position>
     <lookAt>
-      <x>245</x>
-      <y>95 </y>
+      <x>50</x>
+      <y>75 </y>
       <z>5 </z>
     </lookAt>
   </camera>
@@ -70,8 +70,8 @@
       <joint> 0 </joint>
     </jointValues>
     <position>
-      <x> 240</x>
-      <y> 95 </y>
+      <x> 75</x>
+      <y> 75 </y>
       <z> 1.13 </z>
     </position>
     <orientation>
@@ -85,8 +85,8 @@
     <name>waypoint_marker</name>
     <file>urdf/marker_uwsim.urdf</file>
     <position>
-      <x> 205</x>
-      <y> 95 </y>
+      <x> 5</x>
+      <y> 5 </y>
       <z> 1 </z>
     </position>
     <orientation>
