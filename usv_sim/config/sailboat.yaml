@@ -40,7 +40,7 @@ training: #namespace
     batch_size: 64
     gamma: 0.9
     tau: 0.001
-    lr_actor: 0.0001
+    lr_actor: 0.00001
     lr_critic: 0.001
 
     hidden_size1: 400
@@ -49,6 +49,8 @@ training: #namespace
     buffer_start: 100
     epsilon: 1
     epsilon_decay: 0
+    eta: 1
+    eta_decay: 0.7
 
     print_every: 10
 

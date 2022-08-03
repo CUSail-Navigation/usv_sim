@@ -53,6 +53,8 @@ if __name__ == '__main__':
     buffer_start = rospy.get_param("/sailboat/training/buffer_start")
     epsilon = rospy.get_param("/sailboat/training/epsilon")
     epsilon_decay = rospy.get_param("/sailboat/training/epsilon_decay")
+    eta = rospy.get_param('/sailboat/training/eta')
+    eta_decay = rospy.get_param('/sailboat/training/eta_decay')
 
     print_every = rospy.get_param("/sailboat/training/print_every")
 
@@ -215,6 +217,19 @@ if __name__ == '__main__':
             return 'OrnsteinUhlenbeckActionNoise(mu={}, sigma={})'.format(
                 self.mu, self.sigma)
 
+    class GaussianActionNoise():
+
+        def __init__(self, mu=0, sigma=0.2):
+            self.mu = mu
+            self.sigma = sigma
+
+        def __call__(self):
+            return numpy.random.normal(self.mu, self.sigma)
+
+        def __repr__(self):
+            return 'GaussianActionNoise(mu={}, sigma={})'.format(
+                self.mu, self.sigma)
+
     # training
     torch.manual_seed(-1)
 
@@ -225,11 +240,8 @@ if __name__ == '__main__':
     rospy.loginfo("State dim: {}, Action dim: {}".format(
         state_dim, action_dim))
 
-    noise = OrnsteinUhlenbeckActionNoise(mu=numpy.zeros(action_dim),
-                                         sigma=numpy.array([
-                                             env.action_space.high[0] * 0.2,
-                                             env.action_space.high[1] * 0.2
-                                         ]))
+    noise = GaussianActionNoise(mu=numpy.zeros(action_dim),
+                                sigma=numpy.array([0.2, 0.2]))
 
     critic = Critic(state_dim, action_dim).to(device)
     actor = Actor(state_dim, action_dim).to(device)
@@ -269,13 +281,25 @@ if __name__ == '__main__':
         ep_q_value = 0.
         step = 0
 
-        for step in range(nsteps):
+        eta *= eta_decay
+        terminal = False
+        while not terminal:
             global_step += 1
             epsilon -= epsilon_decay
             a = actor.get_action(s)
 
-            a += noise() * max(0, epsilon)
+            if numpy.random.rand() < eta:
+                a = numpy.random.uniform(-1, 1, action_dim)
+                rospy.loginfo("CHOSE RANDOM ACTION {}".format(a))
+            else:
+                rospy.loginfo("INITIAL ACTION {}".format(a))
+                n = noise()
+                rospy.loginfo("NOISE {}".format(n))
+                a += n * max(0, epsilon)
+
+            rospy.loginfo("UNCLIPPED ACTION {}".format(a))
             a = numpy.clip(a, -1, 1)  # normalization by normalized env wrapper
+            rospy.loginfo("CLIPPED ACTION {}".format(a))
             s2, reward, terminal, info = env.step(a)
 
             if not terminal:
@@ -325,9 +349,6 @@ if __name__ == '__main__':
 
             s = deepcopy(s2)
             ep_reward += reward
-
-            if terminal:
-                break
 
         try:
             plot_reward.append([ep_reward, episode + 1])
