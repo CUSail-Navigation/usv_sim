@@ -34,6 +34,13 @@ controllers:
 training: #namespace
     task_and_robot_environment_name: 'Sailboat-v0'
     ros_ws_abspath: "/home/courtney/catkin_ws" # TODO change this depending on the computer being used
+    path_to_results: "/home/courtney/Desktop/training_results/"
+
+    work_space: # limits of the usable environment
+        x_max: 150
+        x_min: 0
+        y_max: 150
+        y_min: 0
     
     #ddpg parameters
     buffer_size: 1000000
@@ -50,10 +57,9 @@ training: #namespace
     epsilon: 1
     epsilon_decay: 0
     eta: 1
-    eta_decay: 0.7
+    eta_decay: 0.95
 
     print_every: 10
 
     nepisodes: 5000
-    nsteps: 1000
     

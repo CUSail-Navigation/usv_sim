@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import gym
-from matplotlib.pyplot import subplot
+import matplotlib.pyplot as plt
 import numpy
 import time
 import torch
@@ -15,6 +15,7 @@ from openai_ros.openai_ros_common import StartOpenAI_ROS_Environment
 from collections import deque
 import random
 from copy import deepcopy
+import os
 
 if __name__ == '__main__':
 
@@ -36,6 +37,9 @@ if __name__ == '__main__':
     rospy.loginfo("Monitor Wrapper started")
 
     last_time_steps = numpy.ndarray(0)
+
+    # path to store results
+    result_dir = rospy.get_param('/sailboat/training/path_to_results')
 
     # Loads parameters from the ROS param server
     # Parameters are stored in a yaml file inside the config directory
@@ -59,7 +63,6 @@ if __name__ == '__main__':
     print_every = rospy.get_param("/sailboat/training/print_every")
 
     nepisodes = rospy.get_param("/sailboat/training/nepisodes")
-    nsteps = rospy.get_param("/sailboat/training/nsteps")
 
     # Use GPU if possible
     device = None
@@ -292,14 +295,11 @@ if __name__ == '__main__':
                 a = numpy.random.uniform(-1, 1, action_dim)
                 rospy.loginfo("CHOSE RANDOM ACTION {}".format(a))
             else:
-                rospy.loginfo("INITIAL ACTION {}".format(a))
                 n = noise()
-                rospy.loginfo("NOISE {}".format(n))
+                rospy.loginfo("LEARNED ACTION {}, NOISE {}".format(a, n))
                 a += n * max(0, epsilon)
 
-            rospy.loginfo("UNCLIPPED ACTION {}".format(a))
             a = numpy.clip(a, -1, 1)  # normalization by normalized env wrapper
-            rospy.loginfo("CLIPPED ACTION {}".format(a))
             s2, reward, terminal, info = env.step(a)
 
             if not terminal:
@@ -351,24 +351,44 @@ if __name__ == '__main__':
             ep_reward += reward
 
         try:
-            plot_reward.append([ep_reward, episode + 1])
-            plot_policy.append([policy_loss.data, episode + 1])
-            plot_q.append([q_loss.data, episode + 1])
-            plot_steps.append([step + 1, episode + 1])
+            plot_reward.append(ep_reward)
+            plot_policy.append(policy_loss.data)
+            plot_q.append(q_loss.data)
+            plot_steps.append(step + 1)
         except:
             pass
 
         average_reward += ep_reward
 
         if ep_reward > best_reward:
-            torch.save(actor.state_dict(), 'best_model_sailboat.pickle')
+            # make sure path to results exists
+            if not os.path.exists(result_dir):
+                os.makedirs(result_dir)
+
+            torch.save(actor.state_dict(),
+                       os.path.join(result_dir, 'best_model_sailboat.pickle'))
             best_reward = ep_reward
             saved_reward = ep_reward
             saved_ep = episode + 1
 
         try:
             if (episode % print_every) == (print_every - 1):
-                subplot(plot_reward, plot_policy, plot_q, plot_steps)
+                axs = plt.subplot(4, 1)
+                axs[0].set_title("Episode Rewards")
+                axs[0].plot(plot_reward, 'g-')
+                axs[1].set_title('Policy Loss')
+                axs[1].plot(plot_policy, 'r-')
+                axs[2].set_title('Q Loss')
+                axs[2].plot(plot_q, 'r-')
+                axs[3].set_title('Steps per Episode')
+                axs[3].plot(plot_steps, 'b-')
+
+                # make sure path to results exists
+                if not os.path.exists(result_dir):
+                    os.makedirs(result_dir)
+                plt.savefig(
+                    os.path.join(result_dir, 'episode-{}.pdf'.format(episode)))
+
                 rospy.loginfo(
                     '[%6d episode, %8d total steps] average reward for past {} iterations: %.3f'
                     .format(print_every) %
