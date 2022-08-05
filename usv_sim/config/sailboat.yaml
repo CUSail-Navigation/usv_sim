@@ -36,6 +36,10 @@ training: #namespace
     ros_ws_abspath: "/home/courtney/catkin_ws" # TODO change this depending on the computer being used
     path_to_results: "/home/courtney/Desktop/training_results/"
 
+    load_models: # file names in the results directory (above) to start training with (empty "" for none)
+        load_actor: "best_actor_sailboat.pickle"
+        load_critic: "best_critic_sailboat.pickle"
+
     work_space: # limits of the usable environment
         x_max: 150
         x_min: 0

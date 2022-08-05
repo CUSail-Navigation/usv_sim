@@ -41,6 +41,10 @@ if __name__ == '__main__':
     # path to store results
     result_dir = rospy.get_param('/sailboat/training/path_to_results')
 
+    # Existing actor and critic models to start from
+    load_actor = rospy.get_param('/sailboat/training/load_models/load_actor')
+    load_critic = rospy.get_param('/sailboat/training/load_models/load_critic')
+
     # Loads parameters from the ROS param server
     # Parameters are stored in a yaml file inside the config directory
     # They are loaded at runtime by the launch file
@@ -249,6 +253,13 @@ if __name__ == '__main__':
     critic = Critic(state_dim, action_dim).to(device)
     actor = Actor(state_dim, action_dim).to(device)
 
+    if load_actor != "":
+        actor.load_state_dict(torch.load(os.path.join(result_dir, load_actor)))
+
+    if load_critic != "":
+        critic.load_state_dict(
+            torch.load(os.path.join(result_dir, load_critic)))
+
     target_critic = Critic(state_dim, action_dim).to(device)
     target_actor = Actor(state_dim, action_dim).to(device)
 
@@ -283,6 +294,9 @@ if __name__ == '__main__':
         ep_reward = 0.
         ep_q_value = 0.
         step = 0
+
+        total_policy_loss = 0.0
+        total_q_loss = 0.0
 
         eta *= eta_decay
         terminal = False
@@ -326,6 +340,7 @@ if __name__ == '__main__':
 
                 q_optimizer.zero_grad()
                 q_loss = MSE(q, y)
+                total_q_loss += q_loss.item()
                 q_loss.backward()
                 q_optimizer.step()
 
@@ -333,6 +348,7 @@ if __name__ == '__main__':
                 policy_optimizer.zero_grad()
                 policy_loss = -critic(s_batch, actor(s_batch))
                 policy_loss = policy_loss.mean()
+                total_policy_loss += policy_loss.item()
                 policy_loss.backward()
                 policy_optimizer.step()
 
@@ -350,13 +366,10 @@ if __name__ == '__main__':
             s = deepcopy(s2)
             ep_reward += reward
 
-        try:
-            plot_reward.append(ep_reward)
-            plot_policy.append(policy_loss.data)
-            plot_q.append(q_loss.data)
-            plot_steps.append(step + 1)
-        except:
-            pass
+        plot_reward.append(ep_reward)
+        plot_policy.append(total_policy_loss)
+        plot_q.append(total_q_loss)
+        plot_steps.append(step + 1)
 
         average_reward += ep_reward
 
@@ -366,40 +379,40 @@ if __name__ == '__main__':
                 os.makedirs(result_dir)
 
             torch.save(actor.state_dict(),
-                       os.path.join(result_dir, 'best_model_sailboat.pickle'))
+                       os.path.join(result_dir, 'best_actor_sailboat.pickle'))
+            torch.save(critic.state_dict(),
+                       os.path.join(result_dir, 'best_critic_sailboat.pickle'))
             best_reward = ep_reward
             saved_reward = ep_reward
             saved_ep = episode + 1
 
-        try:
-            if (episode % print_every) == (print_every - 1):
-                axs = plt.subplot(4, 1)
-                axs[0].set_title("Episode Rewards")
-                axs[0].plot(plot_reward, 'g-')
-                axs[1].set_title('Policy Loss')
-                axs[1].plot(plot_policy, 'r-')
-                axs[2].set_title('Q Loss')
-                axs[2].plot(plot_q, 'r-')
-                axs[3].set_title('Steps per Episode')
-                axs[3].plot(plot_steps, 'b-')
+        if (episode % print_every) == (print_every - 1):
+            fig, axs = plt.subplots(4, 1, sharex=True)
+            axs[0].set_title("Episode Rewards")
+            axs[0].plot(plot_reward, 'g-')
+            axs[1].set_title('Policy Loss')
+            axs[1].plot(plot_policy, 'r-')
+            axs[2].set_title('Q Loss')
+            axs[2].plot(plot_q, 'r-')
+            axs[3].set_title('Steps per Episode')
+            axs[3].plot(plot_steps, 'b-')
+            plt.tight_layout()
 
-                # make sure path to results exists
-                if not os.path.exists(result_dir):
-                    os.makedirs(result_dir)
-                plt.savefig(
-                    os.path.join(result_dir, 'episode-{}.pdf'.format(episode)))
+            # make sure path to results exists
+            if not os.path.exists(result_dir):
+                os.makedirs(result_dir)
+            plt.savefig(
+                os.path.join(result_dir, 'episode-{}.pdf'.format(episode)))
 
-                rospy.loginfo(
-                    '[%6d episode, %8d total steps] average reward for past {} iterations: %.3f'
-                    .format(print_every) %
-                    (episode + 1, global_step, average_reward / print_every))
+            rospy.loginfo(
+                '[%6d episode, %8d total steps] average reward for past {} iterations: %.3f'
+                .format(print_every) %
+                (episode + 1, global_step, average_reward / print_every))
 
-                rospy.loginfo(
-                    'Last model saved with reward: {:.2f}, at episode {}'.
-                    format(saved_reward, saved_ep))
+            rospy.loginfo(
+                'Last model saved with reward: {:.2f}, at episode {}'.format(
+                    saved_reward, saved_ep))
 
-                average_reward = 0
-        except:
-            pass
+            average_reward = 0
 
     env.close()
