@@ -1,2 +1,4 @@
-.uwsim*
-*/navigation_utilities.py
+*pycache*
+.uwsim/*
+*/*/navigation_utilities.py
+*/*/precisionNavGenerator.py
