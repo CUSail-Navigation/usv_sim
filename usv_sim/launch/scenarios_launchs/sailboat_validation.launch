@@ -25,10 +25,10 @@
         <node name="uwsim" pkg="uwsim" type="uwsim" args="$(arg disableShaders) --dataPath $(find usv_sim) --configfile scenes/sailboat_training.xml" respawn="false" required="true" />
 
         <!-- using parser  -->
-        <include file="$(find usv_sim)/launch/scenarios_launchs/sailboat_training_spawner.launch" />
+        <include file="$(find usv_sim)/launch/scenarios_launchs/sailboat_validation_spawner.launch" />
         <!-- one include and one node to each vehicle -->
         <node name="patrol" pkg="usv_navigation" type="patrol_pid_training.py" ns="sailboat" unless="$(arg gui)" />
-        <include file="$(find usv_sim)/launch/models/spawn_sailboat_training.launch">
+        <include file="$(find usv_sim)/launch/models/spawn_sailboat_validation.launch">
             <arg name="gui" value="$(arg gui)" />
             <arg name="spawnGazebo" value="$(arg spawnGazebo)" />
             <arg name="namespace" value="$(arg namespace)" />
@@ -40,13 +40,13 @@
         <!-- <rosparam command="load" file="$(find usv_sim)/config/sailboat.yaml" /> -->
 
         <!-- recording experiment -->
-        <node pkg="rosbag" type="record" name="record_sailboat" args="-O /$(find usv_navigation)bags/sailboat_training.bag /sailboat/state" output="screen" if="$(arg rec)" />
+        <node pkg="rosbag" type="record" name="record_sailboat" args="-O /$(find usv_navigation)bags/sailboat_validation.bag /sailboat/state" output="screen" if="$(arg rec)" />
 
     </group>
 
     <!-- parse launch file -->
     <group if="$(arg parse)">
-        <node name="scene_to_spawner" pkg="freefloating_gazebo" type="uwsim_scene_to_gazebo_spawner.py" args="$(find usv_sim)/launch/scenarios_launchs/sailboat_training.launch" output="screen" required="true" />
+        <node name="scene_to_spawner" pkg="freefloating_gazebo" type="uwsim_scene_to_gazebo_spawner.py" args="$(find usv_sim)/launch/scenarios_launchs/sailboat_validation.launch" output="screen" required="true" />
     </group>
 
 </launch>

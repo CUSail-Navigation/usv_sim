@@ -144,8 +144,12 @@ if __name__ == '__main__':
             self.linear1 = nn.Linear(state_dim, h1)
             self.linear1.weight.data = fanin_(self.linear1.weight.data.size())
 
+            self.ln1 = nn.LayerNorm(h1)
+
             self.linear2 = nn.Linear(h1 + action_dim, h2)
             self.linear2.weight.data = fanin_(self.linear2.weight.data.size())
+
+            self.ln2 = nn.LayerNorm(h2)
 
             self.linear3 = nn.Linear(h2, 1)
             self.linear3.weight.data.uniform_(-init_w, init_w)
@@ -154,10 +158,13 @@ if __name__ == '__main__':
 
         def forward(self, state, action):
             x = self.linear1(state)
+            x = self.ln1(x)
             x = self.relu(x)
-            x = self.linear2(torch.cat([x, action], 1))
 
+            x = self.linear2(torch.cat([x, action], 1))
+            x = self.ln2(x)
             x = self.relu(x)
+
             x = self.linear3(x)
 
             return x
@@ -175,8 +182,12 @@ if __name__ == '__main__':
             self.linear1 = nn.Linear(state_dim, h1)
             self.linear1.weight.data = fanin_(self.linear1.weight.data.size())
 
+            self.ln1 = nn.LayerNorm(h1)
+
             self.linear2 = nn.Linear(h1, h2)
             self.linear2.weight.data = fanin_(self.linear2.weight.data.size())
+
+            self.ln2 = nn.LayerNorm(h2)
 
             self.linear3 = nn.Linear(h2, action_dim)
             self.linear3.weight.data.uniform_(-init_w, init_w)
@@ -186,9 +197,13 @@ if __name__ == '__main__':
 
         def forward(self, state):
             x = self.linear1(state)
+            x = self.ln1(x)
             x = self.relu(x)
+
             x = self.linear2(x)
+            x = self.ln2(x)
             x = self.relu(x)
+
             x = self.linear3(x)
             x = self.tanh(x)
             return x
@@ -302,6 +317,7 @@ if __name__ == '__main__':
         terminal = False
         while not terminal:
             global_step += 1
+            step += 1
             epsilon -= epsilon_decay
             a = actor.get_action(s)
 
@@ -316,8 +332,7 @@ if __name__ == '__main__':
             a = numpy.clip(a, -1, 1)  # normalization by normalized env wrapper
             s2, reward, terminal, info = env.step(a)
 
-            if not terminal:
-                memory.add(s, a, reward, terminal, s2)
+            memory.add(s, a, reward, terminal, s2)
 
             # keep adding experiences until batch size is reached
             if memory.count() > buffer_start:
@@ -373,7 +388,7 @@ if __name__ == '__main__':
 
         average_reward += ep_reward
 
-        if ep_reward > best_reward:
+        if (episode % print_every) == (print_every - 1):
             # make sure path to results exists
             if not os.path.exists(result_dir):
                 os.makedirs(result_dir)
@@ -386,7 +401,6 @@ if __name__ == '__main__':
             saved_reward = ep_reward
             saved_ep = episode + 1
 
-        if (episode % print_every) == (print_every - 1):
             fig, axs = plt.subplots(4, 1, sharex=True)
             axs[0].set_title("Episode Rewards")
             axs[0].plot(plot_reward, 'g-')

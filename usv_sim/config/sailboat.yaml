@@ -34,7 +34,7 @@ controllers:
 training: #namespace
     task_and_robot_environment_name: 'Sailboat-v0'
     ros_ws_abspath: "/home/courtney/catkin_ws" # TODO change this depending on the computer being used
-    path_to_results: "/home/courtney/Desktop/training_results/"
+    path_to_results: "/home/courtney/Desktop/training_results/norm_attempt0/"
 
     load_models: # file names in the results directory (above) to start training with (empty "" for none)
         load_actor: "best_actor_sailboat.pickle"
@@ -52,16 +52,16 @@ training: #namespace
     gamma: 0.9
     tau: 0.001
     lr_actor: 0.00001
-    lr_critic: 0.001
+    lr_critic: 0.0001
 
     hidden_size1: 400
     hidden_size2: 300
 
     buffer_start: 100
     epsilon: 1
-    epsilon_decay: 0
-    eta: 1
-    eta_decay: 0.95
+    epsilon_decay: 0.999
+    eta: 0.5
+    eta_decay: 0.8
 
     print_every: 10
 
