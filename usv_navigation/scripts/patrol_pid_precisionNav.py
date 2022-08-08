@@ -19,7 +19,7 @@ waypoints = [[(w[0], w[1], 0.0), (0.0, 0.0, 0.0, 1.0)] for w in waypoints]
 result = Float64()
 result.data = 0
 maxSimulations = 1
-maxTime = 5 * 60
+maxTime = 15 * 60
 
 
 def goal_pose(pose):
@@ -52,7 +52,9 @@ if __name__ == '__main__':
     simulationNumber = 1
     while not rospy.is_shutdown():
         try:
-            rospy.logerr("Simulation number %d", simulationNumber)
+            rospy.logerr(
+                "Simulation number {}. There are {} waypoints.".format(
+                    simulationNumber, len(waypoints)))
             for pose in waypoints:
                 goal = goal_pose(pose)
                 pub.publish(goal)

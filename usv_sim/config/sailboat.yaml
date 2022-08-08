@@ -34,7 +34,7 @@ controllers:
 training: #namespace
     task_and_robot_environment_name: 'Sailboat-v0'
     ros_ws_abspath: "/home/courtney/catkin_ws" # TODO change this depending on the computer being used
-    path_to_results: "/home/courtney/Desktop/training_results/norm_attempt0/"
+    path_to_results: "/home/courtney/Desktop/simulator-resources/initial_rl_model"
 
     load_models: # file names in the results directory (above) to start training with (empty "" for none)
         load_actor: "best_actor_sailboat.pickle"

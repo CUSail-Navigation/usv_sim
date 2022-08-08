@@ -41,9 +41,8 @@ if __name__ == '__main__':
     # path to store results
     result_dir = rospy.get_param('/sailboat/training/path_to_results')
 
-    # Existing actor and critic models to start from
+    # Existing actor model to start from
     load_actor = rospy.get_param('/sailboat/training/load_models/load_actor')
-    load_critic = rospy.get_param('/sailboat/training/load_models/load_critic')
 
     hidden_size1 = rospy.get_param("/sailboat/training/hidden_size1")
     hidden_size2 = rospy.get_param("/sailboat/training/hidden_size2")
@@ -77,44 +76,6 @@ if __name__ == '__main__':
         fan_in = size[0]
         weight = 1. / numpy.sqrt(fan_in)
         return torch.Tensor(size).uniform_(-weight, weight)
-
-    class Critic(nn.Module):
-
-        def __init__(self,
-                     state_dim,
-                     action_dim,
-                     h1=hidden_size1,
-                     h2=hidden_size2,
-                     init_w=3e-3):
-            super(Critic, self).__init__()
-
-            self.linear1 = nn.Linear(state_dim, h1)
-            self.linear1.weight.data = fanin_(self.linear1.weight.data.size())
-
-            self.ln1 = nn.LayerNorm(h1)
-
-            self.linear2 = nn.Linear(h1 + action_dim, h2)
-            self.linear2.weight.data = fanin_(self.linear2.weight.data.size())
-
-            self.ln2 = nn.LayerNorm(h2)
-
-            self.linear3 = nn.Linear(h2, 1)
-            self.linear3.weight.data.uniform_(-init_w, init_w)
-
-            self.relu = nn.ReLU()
-
-        def forward(self, state, action):
-            x = self.linear1(state)
-            x = self.ln1(x)
-            x = self.relu(x)
-
-            x = self.linear2(torch.cat([x, action], 1))
-            x = self.ln2(x)
-            x = self.relu(x)
-
-            x = self.linear3(x)
-
-            return x
 
     class Actor(nn.Module):
 
@@ -170,7 +131,6 @@ if __name__ == '__main__':
     rospy.loginfo("State dim: {}, Action dim: {}".format(
         state_dim, action_dim))
 
-    critic = Critic(state_dim, action_dim).to(device)
     actor = Actor(state_dim, action_dim).to(device)
 
     if load_actor != "":
@@ -178,15 +138,8 @@ if __name__ == '__main__':
     else:
         rospy.logerr("No actor provided. Using random.")
 
-    if load_critic != "":
-        critic.load_state_dict(
-            torch.load(os.path.join(result_dir, load_critic)))
-    else:
-        rospy.logerr("No critic provided. Using random.")
-
     # set eval mode
     actor.eval()
-    critic.eval()
 
     plot_reward = []
     plot_steps = []
