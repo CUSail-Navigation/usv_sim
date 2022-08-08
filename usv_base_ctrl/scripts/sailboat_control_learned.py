@@ -321,6 +321,7 @@ if __name__ == '__main__':
                 return action.detach().cpu().numpy()[0]
 
         actor = Actor().to(device)
+        actor.eval()
 
         if load_actor != "":
             actor.load_state_dict(
