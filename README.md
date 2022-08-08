@@ -1,5 +1,5 @@
 
-# Simulated enviroment for Unmanned Surface Vehicles (usv_sim_lsa) -- 0.2
+# Simulated enviroment for Unmanned Surface Vehicles (usv_sim)
 
 Forked from https://github.com/disaster-robotics-proalertas/usv_sim_lsa.
 
@@ -14,8 +14,6 @@ Now run the following commands to download the dependencies of usv_sim:
 
 
 ## Installing
-
-### Downloading and installing usv_sim stack
 
 Clone the usv_sim repository in the src folder of your catkin workspace:
 
