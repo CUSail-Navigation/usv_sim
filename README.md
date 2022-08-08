@@ -18,7 +18,7 @@ Now run the following commands to download the dependencies of usv_sim:
 Clone the usv_sim repository in the src folder of your catkin workspace:
 
         cd ~/catkin_ws/src
-        git clone https://github.com/courtneymcbeth/usv_sim.git
+        git clone git@github.com:CUSail-Navigation/usv_sim.git
         cd usv_sim
         git submodule init
         git submodule update
