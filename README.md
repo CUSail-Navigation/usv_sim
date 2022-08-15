@@ -43,6 +43,6 @@ To run a scenario:
         roslaunch usv_sim scenario_name.launch parse:=true
         roslaunch usv_sim scenario_name.launch parse:=false
 
-The simulation might take some time to initialize if you're launching gazebo for the first time. If the simulation dosen't starts you should close it, run gazebo separately (command *gazebo* in the terminal), wait for gazebo to open (it is downloading some models), close gazebo and then try to run the scenario again.
+The simulation might take some time to initialize if you're launching gazebo for the first time. If the simulation doesn't start you should close it, run gazebo separately (command *gazebo* in the terminal), wait for gazebo to open (it is downloading some models), close gazebo and then try to run the scenario again.
 
 Make sure your graphic card driver is up to date.
