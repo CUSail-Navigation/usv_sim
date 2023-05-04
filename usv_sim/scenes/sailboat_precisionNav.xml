@@ -6,7 +6,7 @@
   <oceanState>
     <windx> 1 </windx>
     <windy> 0 </windy>
-    <windSpeed> 2.2 </windSpeed>
+    <windSpeed> 3 </windSpeed>
     <depth> 10000 </depth>
     <reflectionDamping> 0.35 </reflectionDamping>
     <waveScale> 1e-7 </waveScale>
@@ -70,7 +70,7 @@
       <joint> 0 </joint>
     </jointValues>
     <position>
-      <x> 195</x>
+      <x> 205</x>
       <y> 95 </y>
       <z> 1.13 </z>
     </position>

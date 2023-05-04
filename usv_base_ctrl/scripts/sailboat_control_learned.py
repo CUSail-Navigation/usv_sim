@@ -30,7 +30,7 @@ currentHeading.data = 0
 f_distance = 2
 current_heading = 0
 
-T = 4  # run the nav algo every T seconds
+T = 1  # run the nav algo every T seconds
 last_run = -math.inf  # last time the nav algo was run
 sim_time = 0
 sail_angle = 0

@@ -26,6 +26,7 @@
 #include <ros/ros.h>
 #include <geometry_msgs/Vector3.h>
 #include <std_msgs/Float64.h>
+#include <std_msgs/Float64MultiArray.h>
 #include "water_current/GetSpeed.h"
 #include "wind_current/GetSpeed.h"
 
@@ -51,6 +52,8 @@ namespace gazebo
 
     // Read topic gazebo/current to get water current
     protected: void ReadWaterCurrent(const geometry_msgs::Vector3::ConstPtr& _msg);
+
+    protected: void ReadWindSpeed(const std_msgs::Float64MultiArray& _msg);
 
     /// \brief Connection to World Update events.
     protected: event::ConnectionPtr updateConnection;
@@ -112,6 +115,8 @@ namespace gazebo
     protected: ros::NodeHandle rosnode_;
     protected: ignition::math::Vector3d wind;
     //protected: float angle;
+
+    protected: ros::Subscriber wind_speed_subscriber_;
     protected: ros::ServiceClient velocity_serviceClient_;
     protected: bool running;
     protected: std::string fluidVelocity;

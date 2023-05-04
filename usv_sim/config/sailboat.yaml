@@ -60,8 +60,8 @@ training: #namespace
     buffer_start: 100
     epsilon: 1
     epsilon_decay: 0.999
-    eta: 0.5
-    eta_decay: 0.8
+    eta: 1
+    eta_decay: 0.99
 
     print_every: 10
 

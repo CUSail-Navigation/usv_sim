@@ -144,6 +144,7 @@ Foil_Dynamics_Plugin::Init ()
 {
 	std::cerr << "\n ----------- Foil_Dynamics_Plugin::init: type: " << this->linkType << " linkName: " << this->linkName;
 	current_subscriber_ = rosnode_.subscribe ("/gazebo/current", 1, &Foil_Dynamics_Plugin::ReadWaterCurrent, this);
+	wind_speed_subscriber_ = rosnode_.subscribe ("/sailboat/uwsim/wind_speed", 1, &Foil_Dynamics_Plugin::ReadWindSpeed, this);
 	this->updateConnection = event::Events::ConnectWorldUpdateBegin (boost::bind (&Foil_Dynamics_Plugin::OnUpdate, this));
 
 	std::cerr << "\n compare to sail: " << this->linkType.compare ("sail");
@@ -511,6 +512,16 @@ Foil_Dynamics_Plugin::WaterThreadLoop ()
 			s.sleep ();
 		}
 		r.sleep ();
+	}
+}
+
+void
+Foil_Dynamics_Plugin::ReadWindSpeed (const std_msgs::Float64MultiArray& _msg)
+{
+	if(sizeof(_msg.data)) {
+		wind.X(_msg.data[0]);
+		wind.Y(_msg.data[1]);
+		ROS_INFO("WIND SPEED IS NOW %f %f %f", wind.X(), wind.Y(), wind.Z());
 	}
 }
 

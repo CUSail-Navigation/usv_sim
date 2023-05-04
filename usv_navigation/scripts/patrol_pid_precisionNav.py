@@ -19,7 +19,7 @@ waypoints = [[(w[0], w[1], 0.0), (0.0, 0.0, 0.0, 1.0)] for w in waypoints]
 result = Float64()
 result.data = 0
 maxSimulations = 1
-maxTime = 15 * 60
+maxTime = 30 * 60
 
 
 def goal_pose(pose):

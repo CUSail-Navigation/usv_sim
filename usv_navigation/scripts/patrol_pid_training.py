@@ -2,7 +2,7 @@
 
 import rospy
 from nav_msgs.msg import Odometry
-from std_msgs.msg import Float64, Bool
+from std_msgs.msg import Float64, Bool, Float64MultiArray, MultiArrayDimension
 from geometry_msgs.msg import Twist, Point, Quaternion
 from gazebo_msgs.msg import ModelState
 from std_srvs.srv import Empty
@@ -26,11 +26,15 @@ goal_y = 0.0
 
 marker_pos = (0, 0)
 
+wind_x = 2.2
+wind_y = 0.0
+
 
 def reset_yaw_and_goal(r):
 
     if r.data:
         randomize_goal()
+        randomize_wind()
 
 
 def axis_angle_to_quaternion(ax, ay, az, angle):
@@ -78,8 +82,29 @@ def randomize_goal():
     goal_y = np.random.uniform(workspace_y_min + 10, workspace_y_max - 10)
 
 
+def randomize_wind():
+    global wind_x, wind_y
+
+    wind_angle = np.random.rand() * np.pi * 2.0
+    wind_speed = np.random.normal(3, 1)
+    wind_x = wind_speed * np.cos(wind_angle)
+    wind_y = wind_speed * np.sin(wind_angle)
+    rospy.logerr("SET THE WIND SPEED TO {} {}".format(wind_x, wind_y))
+
+
+def wind_msg():
+    global wind_x, wind_y
+
+    m = Float64MultiArray()
+    m.layout.dim.append(MultiArrayDimension())
+    m.layout.dim[0].size = 2
+    m.data = [wind_x, wind_y]
+    return m
+
+
 if __name__ == '__main__':
     pub = rospy.Publisher('move_usv/goal', Odometry, queue_size=10)
+    pub_wind = rospy.Publisher('uwsim/wind_speed', Float64MultiArray, queue_size=1)
     pub_model_state = rospy.Publisher('/gazebo/set_model_state',
                                       ModelState,
                                       queue_size=10)
@@ -98,6 +123,7 @@ if __name__ == '__main__':
     workspace_y_max = rospy.get_param('/sailboat/training/work_space/y_max')
     workspace_y_min = rospy.get_param('/sailboat/training/work_space/y_min')
     randomize_goal()
+    randomize_wind()
 
     unpause()
 
@@ -107,6 +133,7 @@ if __name__ == '__main__':
             goal = goal_pose()
             pub.publish(goal)
 
+            pub_wind.publish(wind_msg())
             pub_model_state.publish(marker_msg())
             # Only move the marker if the target has changed, otherwise jitters
             # mm = marker_msg()
