@@ -37,6 +37,11 @@ def reset_yaw_and_goal(r):
         randomize_wind()
 
 
+def reset_goal(r):
+    if r.data:
+        randomize_goal()
+
+
 def axis_angle_to_quaternion(ax, ay, az, angle):
     # angle in radians, unit vector of axis
     s = np.sin(angle / 2)
@@ -109,6 +114,7 @@ if __name__ == '__main__':
                                       ModelState,
                                       queue_size=10)
     rospy.Subscriber('/sailboat/episode_reset', Bool, reset_yaw_and_goal)
+    rospy.Subscriber('/sailboat/hit_waypoint', Bool, reset_goal)
     rospy.init_node('patrol')
     rate = rospy.Rate(0.5)  # 1Hz
     rospy.wait_for_service('/gazebo/unpause_physics')

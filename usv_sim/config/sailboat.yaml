@@ -61,7 +61,7 @@ training: #namespace
     epsilon: 1
     epsilon_decay: 0.999
     eta: 1
-    eta_decay: 0.99
+    eta_decay: 0.999
 
     print_every: 10
 
