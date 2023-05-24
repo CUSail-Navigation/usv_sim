@@ -27,7 +27,7 @@ windDir = Float64()
 windDir.data = 1.5
 currentHeading = Float64()
 currentHeading.data = 0
-f_distance = 2
+f_distance = 3
 current_heading = 0
 
 T = 1  # run the nav algo every T seconds
@@ -150,20 +150,24 @@ def sail_rudder_ctrl():
     base_speed_angular_yaw = odom.twist.twist.angular.z
 
     wind_rel_x, wind_rel_y = relative_wind_unit_vector(base_yaw)
+    wind_rel = numpy.arctan2(wind_rel_y, wind_rel_x) % (2 * numpy.pi)
 
     distance_x, distance_y = get_distance_from_goal(base_position)
     target_distance = numpy.sqrt(distance_x**2 + distance_y**2)
 
     observation = []
-    observation.append(round(vel_x, dec_obs))
-    observation.append(round(vel_y, dec_obs))
-    observation.append(round(base_speed_angular_yaw, dec_obs))
+    # observation.append(round(vel_x, dec_obs))
+    # observation.append(round(vel_y, dec_obs))
+    # observation.append(round(base_speed_angular_yaw, dec_obs))
 
-    observation.append(round(sail_angle, dec_obs))
-    observation.append(round(rud_angle, dec_obs))
+    # observation.append(round(sail_angle, dec_obs))
+    # observation.append(round(rud_angle, dec_obs))
 
-    observation.append(round(wind_rel_x, dec_obs))
-    observation.append(round(wind_rel_y, dec_obs))
+    # observation.append(round(wind_rel_x, dec_obs))
+    # observation.append(round(wind_rel_y, dec_obs))
+
+    observation.append(round(wind_rel, dec_obs))
+    observation.append(round(base_yaw, dec_obs))
 
     observation.append(round(distance_x, dec_obs))
     observation.append(round(distance_y, dec_obs))
@@ -283,7 +287,7 @@ if __name__ == '__main__':
         class Actor(nn.Module):
 
             def __init__(self,
-                         state_dim=9,
+                         state_dim=4,
                          action_dim=2,
                          h1=hidden_size1,
                          h2=hidden_size2,
